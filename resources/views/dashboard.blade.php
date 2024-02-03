@@ -235,13 +235,32 @@
             </form>
         @endauth
     </div>
+    <div class="d-flex">
+    
+    @foreach ($post as $post )
+      
+    @if(empty($post))
     <div class="card ms-4 mt-4" style="width: 350px; ">
-    <img src="{{ Storage::url('public/posts/').$post->image }}" class="card-img-top" height="250px" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">{{ Str::limit($post->judul, 60, '...') }}</h5>
-        <p class="card-text">{{ Str::limit($post->content, 100, '...') }}</p>
-        <a href="{{ Route('post/') }}" class="btn btn-primary">Lihat Postingan</a>
+      <div class="card-body">
+      <img src="{{ asset('front/assets/img/tesla-model-s.png') }}" class="card-img-top" height="250px" alt="...">
+        <h5 class="card-title">default</h5>
+        <p class="card-text">default</p>
+        <a href="" class="btn btn-primary">Lihat Postingan</a>
+      </div>
     </div>
+    @else
+    <div class="card ms-4 mt-4" style="width: 350px; ">
+      <div class="card-body position-relative" style="height: 65vh;">
+      <img src="{{ Storage::url('public/posts/').$post->image }}" class="card-img-top" height="250px" alt="...">
+        <h5 class="card-title mt-3">{{ Str::limit($post->judul, 60, '...') }}</h5>
+        <p class="card-text">{{ Str::limit($post->content, 100, '...') }}</p>
+        <a href="{{ url('/post/' . $post->slug) }}" class="btn btn-primary position-absolute bottom-0 left-0" >Lihat Postingan</a>
+      </div>
+    </div>
+
+    @endif
+    @endforeach
+    
     </div>
   </main>
   <div class="fixed-plugin">

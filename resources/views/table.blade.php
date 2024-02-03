@@ -1,4 +1,4 @@
-@extends('layouts.header')
+p[]@extends('layouts.header')
 @section('content')
 
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
@@ -14,7 +14,7 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link text-white " href="{{ Route('dashboard')}}">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+            <:/"
               <i class="material-icons opacity-10">dashboard</i>
             </div>
             <span class="nav-link-text ms-1">Dashboard</span>
@@ -29,11 +29,11 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/billing.html">
+          <a class="nav-link text-white " href="{{ url('/post') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">receipt_long</i>
             </div>
-            <span class="nav-link-text ms-1">Billing</span>
+            <span class="nav-link-text ms-1">Trash</span>
           </a>
         </li>
         <li class="nav-item">
@@ -367,10 +367,11 @@
         <div class="col-12">
           <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex justify-content-between pe-3">
+              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex pe-3">
                 <h6 class="text-white text-capitalize ps-3">posts</h6>
+                <a class="text-white fw-bold fs-6 ms-auto" href="{{ route('posts.trash') }}"><i class="material-icons opacity-10 bg-warning p-1 rounded rounded-2 fa-regular fa-trash"></i></a>
                 @can('create posts', Post::class)
-                <a class="text-white fw-bold fs-6" href="{{ route('posts.create') }}"><i class="material-icons opacity-10 bg-success p-1 rounded rounded-2">add</i></a>
+                <a class="text-white fw-bold fs-6 ms-2" href="{{ route('posts.create') }}"><i class="material-icons opacity-10 bg-success p-1 rounded rounded-2">add</i></a>
                 @endcan
               </div>
             </div>

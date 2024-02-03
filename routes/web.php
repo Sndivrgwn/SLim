@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\UserDashboardController;
+use App\Models\Post;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -42,10 +43,13 @@ Route::post('post/comment/add/{id}', [CommentController::class, 'storePostCommen
 //POST
 Route::get('/post/add', [PostController::class, 'create'])->name('posts.create');
 Route::post('/post/add', [PostController::class, 'store']);
+Route::get('/post/trash', [PostController::class, 'trash'])->name('posts.trash');
+Route::get('/post/restore/{id}', [PostController::class, 'restore']);
+Route::get('/post/forcedelete/{id}', [PostController::class, 'deletePermanent']);
 
 
 /*
-    EDIT & UPDATE DATA
+EDIT & UPDATE DATA
 */
 Route::get('/thread/edit/{id}', [ThreadController::class, 'edit'])->name('threads.edit');
 Route::put('/thread/update/{id}', [ThreadController::class, 'update']);
@@ -55,11 +59,11 @@ Route::get('/post/edit/{id}', [PostController::class, 'edit'])->name('post.edit'
 Route::put('/post/update/{id}', [PostController::class, 'update']);
 
 /*
-    DELETE DATA
-    */
-    Route::delete('/thread/delete/{id}', [ThreadController::class, 'destroy']);
-    Route::delete('/comment/delete/{id}', [CommentController::class, 'destroy']);
-    Route::delete('/post/delete/{id}', [PostController::class, 'destroy']);
+DELETE DATA
+*/
+Route::delete('/thread/delete/{id}', [ThreadController::class, 'destroy']);
+Route::delete('/comment/delete/{id}', [CommentController::class, 'destroy']);
+Route::delete('/post/delete/{id}', [PostController::class, 'destroy']);
 
 
 
@@ -75,3 +79,9 @@ require __DIR__.'/auth.php';
 Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
 Route::get('/logout', [SocialiteController::class, 'logout']);
+
+//POST
+Route::get('/post/{slug}', function ($slug) {
+    $post = Post::where('slug', $slug)->firstOrFail();
+    return view('posts.show', compact('post'));
+})->name('posts.show');

@@ -110,10 +110,36 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
-
-        Storage::disk('local')->delete('public/posts/'.$post->image);
         $post->delete();
-
+        
         return redirect()->back()->with('status', 'Berhasil menghapus thread');
     }
+
+    public function trash()
+    {
+        $post = Post::onlyTrashed()->get();
+
+        return view('posts.sampah', compact('post'));
+    }
+
+    public function restore($id)
+    {
+        $post = Post::onlyTrashed()->where('id', $id);
+        $post->restore();
+
+        return redirect('/table');
+    }
+
+    public function deletePermanent($id)
+    {
+        $post = Post::onlyTrashed()->where('id', $id)->first();
+    
+        if ($post) {
+            Storage::disk('local')->delete('public/posts/'.$post->image);
+            $post->forceDelete();
+        }
+    
+        return redirect('/table');
+    }
+    
 }
