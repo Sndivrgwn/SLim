@@ -21,6 +21,6 @@ class Thread extends Model
 
     public function comment()
     {
-        return $this->hasMany(DetailComment::class, 'thread_id', 'id');
+        return $this->hasMany(Comment::class, 'thread_id', 'id');
     }
 }

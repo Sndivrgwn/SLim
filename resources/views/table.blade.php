@@ -1,4 +1,4 @@
-p[]@extends('layouts.header')
+@extends('layouts.header')
 @section('content')
 
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
@@ -14,7 +14,7 @@ p[]@extends('layouts.header')
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link text-white " href="{{ Route('dashboard')}}">
-            <:/"
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
             <span class="nav-link-text ms-1">Dashboard</span>
@@ -446,7 +446,7 @@ p[]@extends('layouts.header')
           <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">komentar</h6>
+                <h6 class="text-white text-capitalize ps-3">Komentar</h6>
               </div>
             </div>
             <div class="card-body px-0 pb-2">
@@ -471,16 +471,16 @@ p[]@extends('layouts.header')
                             <img src="{{ asset('front/assets/img/team-2.jpg') }}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="badge badge-sm bg-gradient-info">{{ $comment->user->name }}</h6>
+                            <h6 class="badge badge-sm bg-gradient-info">{{ $comment->user->Name }}</h6>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ Str::replace(['anjing', 'goblok', 'tolol'], '*****', $comment->comment->comment) }}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{ Str::replace(['anjing', 'goblok', 'tolol'], '*****', $comment->comment) }}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
                         @if ($comment->thread)
-                            <span class="badge badge-sm bg-gradient-secondary">{{ Str::limit($comment->thread->judul ?? 'Judul tidak tersedia', 1000, '...') }}</span>
+                            <span class="badge badge-sm bg-gradient-secondary">{{ Str::limit($comment->thread->Judul ?? 'Judul tidak tersedia', 1000, '...') }}</span>
                         @else
                             <span class="badge badge-sm bg-gradient-danger" >Thread tidak ditemukan</span>
                         @endif
@@ -496,10 +496,10 @@ p[]@extends('layouts.header')
                         <span class="text-secondary text-xs font-weight-bold">{{ "$comment->created_at" }}</span>
                       </td>
                       <td class="align-middle d-flex align-items-center justify-content-center gap-2" colspan="2 ">
-                        <a href="{{ url('comment/edit/' . $comment->comment_id) }}" class="text-light font-weight-bold text-xs badge bg-warning" data-toggle="tooltip" data-original-title="Edit user">
+                        <a href="{{ url('comment/edit/' . $comment->id) }}" class="text-light font-weight-bold text-xs badge bg-warning" data-toggle="tooltip" data-original-title="Edit user">
                           <i class="material-icons opacity-10">create</i>
                         </a>
-                        <form action="{{ url('/comment/delete/' . $comment->comment_id) }}" method="POST">
+                        <form action="{{ url('/comment/delete/' . $comment->id) }}" method="POST">
                           @csrf
                           @method('delete')
 

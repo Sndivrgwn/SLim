@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use App\Models\Post;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
@@ -32,6 +33,19 @@ class PostController extends Controller
         $post = Post::latest()->paginate(3);
 
         return $post;
+    }
+
+    public function slug($slug)
+    {
+        $post = Post::where('slug', $slug)->firstOrFail();
+        $postId = $post->comment()->isiComment()->get();
+    
+        
+
+    
+        // $commentId = DetailComment::where('post_id', $postId)->get();
+        // $comments = Comment::select('comment')->where('id', $commentId)->get();
+        return view('posts.show', compact('post', 'postId'));
     }
 
     /**

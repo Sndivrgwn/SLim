@@ -30,7 +30,7 @@ Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashb
 Route::get('/table', [DashboardController::class, 'index'])->middleware(['auth'])->name('table');
 
 /*
-    INSERT DATA
+INSERT DATA
 */
 //THREAD
 Route::get('/thread/add', [ThreadController::class, 'create'])->name('threads.create');
@@ -46,6 +46,7 @@ Route::post('/post/add', [PostController::class, 'store']);
 Route::get('/post/trash', [PostController::class, 'trash'])->name('posts.trash');
 Route::get('/post/restore/{id}', [PostController::class, 'restore']);
 Route::get('/post/forcedelete/{id}', [PostController::class, 'deletePermanent']);
+Route::get('/post/{slug}', [PostController::class, 'slug'])->name('posts.show');
 
 
 /*
@@ -81,7 +82,3 @@ Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProv
 Route::get('/logout', [SocialiteController::class, 'logout']);
 
 //POST
-Route::get('/post/{slug}', function ($slug) {
-    $post = Post::where('slug', $slug)->firstOrFail();
-    return view('posts.show', compact('post'));
-})->name('posts.show');

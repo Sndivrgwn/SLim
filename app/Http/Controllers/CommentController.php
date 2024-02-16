@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
-use App\Models\DetailComment;
 use App\Models\Post;
 use App\Models\Thread;
 use Illuminate\Http\Request;
@@ -14,16 +13,27 @@ class CommentController extends Controller
 {
     public function index()
     {
-        $comments = DetailComment::all();
-
+        $comments = Comment::with([
+            'user' => function ($query) {
+                $query->select('id', 'Name'); 
+            },
+            'post' => function ($query) {
+                $query->select('id', 'Judul'); 
+            },
+            'thread' => function ($query) {
+                $query->select('id', 'Judul'); 
+            },
+        ])->get();
+    
         foreach ($comments as $comment) {
             $user = $comment->user;
-            $thread = $comment->thread;
             $post = $comment->post;
+            $thread = $comment->thread;
         }
-
+    
         return $comments;
     }
+    
 
     public function addThreadComment($threadId)
     {
@@ -54,11 +64,10 @@ class CommentController extends Controller
 
         $comment = new Comment;
         $comment->comment = $request->input('comment');
+        
+        $comment->comment_id = $comment->getKey();
+        $comment->user_id = Auth::user()->id;
         $comment->save();
-
-        $dcomment = new DetailComment;
-        $dcomment->comment_id = $comment->getKey();
-        $dcomment->user_id = Auth::user()->id;
 
         $thread = Thread::find($threadId);
 
@@ -66,8 +75,8 @@ class CommentController extends Controller
             return redirect()->back()->with('error', 'Thread tidak ditemukan');
         }
 
-        $dcomment->thread_id = $thread->id;
-        $dcomment->save();
+        $comment->thread_id = $thread->id;
+        $comment->save();
 
         return redirect()->back()->with('status', 'Berhasil Menambah komentar pada Thread');
     }
@@ -78,11 +87,8 @@ class CommentController extends Controller
 
         $comment = new Comment;
         $comment->comment = $request->input('comment');
+        $comment->user_id = Auth::user()->id;
         $comment->save();
-
-        $dcomment = new DetailComment;
-        $dcomment->comment_id = $comment->getKey();
-        $dcomment->user_id = Auth::user()->id;
 
         $post = Post::find($postId);
 
@@ -90,8 +96,8 @@ class CommentController extends Controller
             return redirect()->back()->with('error', 'Post tidak ditemukan');
         }
 
-        $dcomment->post_id = $post->id;
-        $dcomment->save();
+        $comment->post_id = $post->id;
+        $comment->save();
 
         return redirect()->back()->with('status', 'Berhasil Menambah komentar pada Post');
     }

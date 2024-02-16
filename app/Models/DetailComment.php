@@ -24,7 +24,7 @@ class DetailComment extends Model
     {
         return $this->belongsTo(Post::class, 'post_id', 'id');
     }
-    public function comment()
+    public function isiComment()
     {
         return $this->belongsTo(Comment::class, 'comment_id', 'id');
     }
