@@ -29,7 +29,7 @@
 
                 </div>
                 <div class="card-header ">
-                    <a href="{{ route('dashboard') }}" class="btn btn-info">Kembali ke dashboard</a>
+                    <a href="{{ url('/post/' . $post->slug) }}" class="btn btn-info">Kembali</a>
                 </div>
             </div>
         </div>

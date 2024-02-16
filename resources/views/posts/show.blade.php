@@ -15,10 +15,10 @@
 				     
 				  </button>
 				  <ul class="dropdown-menu">
-                  @foreach($postId as $id)
+                  {{-- @foreach($ as $id)
                         
 				    <li><a class="dropdown-item" href="#">{{ $id }}</a></li>
-                  @endforeach
+                  @endforeach --}}
 				    <li><a class="dropdown-item" href="#">Another action</a></li>
 				    <li><a class="dropdown-item" href="#">Something else here</a></li>
 				  </ul>
@@ -36,24 +36,24 @@
                 @if((strlen($post->content) > 400))
                     <span id="dots">...</span>
                     <span id="more">{{ substr($post->content, 400) }}</span>    
+                <button onclick="readMore()" id="readMoreBtn" class="border border-0 bg-info opacity-25 text-light rounded rounded-2 ps-2 pe-2 mb-3">Read more</button>
                 @endif
                 </p>
-                <button onclick="readMore()" id="readMoreBtn" class="border border-0 bg-info opacity-25 text-light rounded rounded-2 ps-2 pe-2 mb-3">Read more</button>
 			</div>
 			<hr class="border border-1 opacity-75 m-0">
 			<div class="text-light d-flex justify-content-center mt-2 mb-0">
 				<button class="bg-transparent border border-0 d-flex text-light">
 				<i class="fa-solid fa-comment mt-1 me-2"></i>
-				<p>tambahkan komentar</p>
+				<a href="{{ url('/post/comment/add/' . $post->id) }}">tambahkan komentar</a>
 				</button>
 			</div>
 			<hr class="text-light border border-1 opacity-75 m-0">
-            @foreach ($postId as $comment)    
+            @foreach ($comments as $compost)    
 			<div class="d-flex gap-2 mt-3">
-				<img src="img/s.jpg" alt="ProfilePhoto" width="40px" height="40px" class="rounded rounded-5 rounded-cirle mt-1">
-				<div class="bg-light rounded rounded-3 mt-1 ps-3 pt-3 pe-3 pb-2">
-					<h6>a</h6>
-					<p>{{ $comment }}</p>
+				<img src="{{ Storage::url('public/posts/').$post->image }}" alt="ProfilePhoto" width="40px" height="40px" class="rounded rounded-5 rounded-cirle mt-1">
+				<div class="bg-light rounded rounded-3 mt-1 p-2" style="max-width: 286px">
+					<h6>{{ $compost->user->name }}</h6>
+					<p>{{ $compost->comment }}</p>
 				</div>
 			</div>
             @endforeach

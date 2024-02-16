@@ -38,14 +38,10 @@ class PostController extends Controller
     public function slug($slug)
     {
         $post = Post::where('slug', $slug)->firstOrFail();
-        $postId = $post->comment()->isiComment()->get();
-    
-        
+        $comments = $post->comment;
 
-    
-        // $commentId = DetailComment::where('post_id', $postId)->get();
-        // $comments = Comment::select('comment')->where('id', $commentId)->get();
-        return view('posts.show', compact('post', 'postId'));
+
+        return view('posts.show', compact('post', 'comments'));
     }
 
     /**
