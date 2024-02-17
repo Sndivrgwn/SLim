@@ -15,7 +15,7 @@ class CommentController extends Controller
     {
         $comments = Comment::with([
             'user' => function ($query) {
-                $query->select('id', 'Name'); 
+                $query->select('id', 'Name', 'image'); 
             },
             'post' => function ($query) {
                 $query->select('id', 'Judul'); 

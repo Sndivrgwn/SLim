@@ -4,7 +4,7 @@
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
-        <img src="../assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
+        <img src="{{ asset('front/assets/img/icons/flags/GB.png') }}" class="navbar-brand-img h-100" alt="main_logo">
         <span class="ms-1 font-weight-bold text-white">Material Dashboard 2</span>
       </a>
     </div>
@@ -65,7 +65,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/profile.html">
+          <a class="nav-link text-white " href="{{ url('dashboard/profile') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">person</i>
             </div>
@@ -212,7 +212,7 @@
             <li class="nav-item d-flex align-items-center">
               <a href="../pages/sign-in.html" class="nav-link text-body font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Sign In</span>
+                <span class="d-sm-inline d-none">{{ Auth::user()->name }}</span>
               </a>
             </li>
           </ul>
@@ -253,7 +253,7 @@
       <div class="card-body position-relative" style="height: 65vh;">
       <img src="{{ Storage::url('public/posts/').$post->image }}" class="card-img-top" height="250px" alt="...">
         <h5 class="card-title mt-3">{{ Str::limit($post->judul, 60, '...') }}</h5>
-        <p class="card-text">{{ Str::limit($post->content, 100, '...') }}</p>
+        <p class="card-text">{{ Str::limit($post->content, 80, '...') }}</p>
         <a href="{{ url('/post/' . $post->slug) }}" class="btn btn-primary position-absolute bottom-0 left-0" >Lihat Postingan</a>
       </div>
     </div>

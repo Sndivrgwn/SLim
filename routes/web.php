@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ThreadController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDashboardController;
 use App\Models\Post;
 use Illuminate\Auth\Events\Login;
@@ -58,6 +59,7 @@ Route::get('/comment/edit/{id}', [CommentController::class, 'edit'])->name('comm
 Route::put('/comment/update/{id}', [CommentController::class, 'update']);
 Route::get('/post/edit/{id}', [PostController::class, 'edit'])->name('post.edit');
 Route::put('/post/update/{id}', [PostController::class, 'update']);
+Route::put('/user/profile/update/{id}', [UserController::class, 'update']);
 
 /*
 DELETE DATA

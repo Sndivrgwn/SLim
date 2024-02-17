@@ -233,8 +233,21 @@
         <div class="row gx-4 mb-2">
           <div class="col-auto">
             <div class="avatar avatar-xl position-relative">
-              <img src="../assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+              <img src="{{  Storage::url('public/users/').Auth::user()->image }}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
             </div>
+             <form action="{{ url('/user/profile/update/' . Auth::user()->id) }}" method="POST" enctype="multipart/form-data">
+               @method('PUT')
+                        @csrf
+
+                        
+                        <div class="form-group mb-3">
+                            <label for="">Gambar</label>
+                            <input type="file" name="image" class="form-control bg-dark text-light ps-3">
+                        </div>
+                        <div class="form-group mb-3">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
           </div>
           <div class="col-auto my-auto">
             <div class="h-100">

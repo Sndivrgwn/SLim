@@ -252,7 +252,8 @@
                       <td>
                           <div class="d-flex px-2 py-1">
                           <div>
-                            <img src="{{ asset('front/assets/img/team-2.jpg') }}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                
+                            <img src="{{ Storage::url('public/users/').$user->image }}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
                             <span class="badge badge-sm bg-gradient-warning">{{ $user->name }}</span>
@@ -394,7 +395,7 @@
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="badge badge-sm bg-gradient-info">{{ $pos->judul }}</h6>
+                            <h6 class="badge badge-sm bg-gradient-info">{{ Str::limit($pos->judul, 30, '...') }}</h6>
                           </div>
                         </div>
                       </td>
@@ -468,7 +469,7 @@
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
-                            <img src="{{ asset('front/assets/img/team-2.jpg') }}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                            <img src="{{ Storage::url('public/users/').$comment->user->image }}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
                             <h6 class="badge badge-sm bg-gradient-info">{{ $comment->user->Name }}</h6>
@@ -476,7 +477,7 @@
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ Str::replace(['anjing', 'goblok', 'tolol'], '*****', $comment->comment) }}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{ Str::limit($comment->comment, 50, '...') }}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
                         @if ($comment->thread)

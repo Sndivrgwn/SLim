@@ -2,11 +2,12 @@
 @section('content')
 
     <div class="d-flex w-100" style="height: 100vh;">
-		<div class="bg-secondary w-25 p-3" style="overflow-y: scroll; overflow-x: hidden;">
+	{{-- sidebar --}}
+		<div class=" w-25 p-3" style="overflow-y: scroll; overflow-x: hidden; background-color: #333;">
 			<div class="d-flex">
-				<img src="img/s.jpg" alt="ProfilePhoto" width="45px" height="45px" class="rounded rounded-5 rounded-cirle">
+				<img src="{{  Storage::url('public/users/').Auth::user()->image }}" alt="ProfilePhoto" width="45px" height="45px" class="rounded rounded-5 rounded-cirle">
 				<div class="text-light ms-2 d-flex align-items-baseline flex-column">
-					<h6 class="m-0">{{ $post->user->name }}</h6>
+					<h6 class="m-0 text-light fw-bold">{{ $post->user->name }}</h6>
 					<p class="m-0" style="font-size: 13px;">12 hour</p>
 				</div>
 				<div class="ms-auto text-light me-3 ">
@@ -43,8 +44,12 @@
 			<hr class="border border-1 opacity-75 m-0">
 			<div class="text-light d-flex justify-content-center mt-2 mb-0">
 				<button class="bg-transparent border border-0 d-flex text-light">
+				<i class="fa-solid fa-heart mt-1 me-2"></i>
+				<a href="{{ url('/post/comment/add/' . $post->id) }}" class="text-light mb-2">20</a>
+				</button>
+				<button class="bg-transparent border border-0 d-flex text-light">
 				<i class="fa-solid fa-comment mt-1 me-2"></i>
-				<a href="{{ url('/post/comment/add/' . $post->id) }}">tambahkan komentar</a>
+				<a href="{{ url('/post/comment/add/' . $post->id) }}" class="text-light mb-2">tambahkan komentar</a>
 				</button>
 			</div>
 			<hr class="text-light border border-1 opacity-75 m-0">
@@ -58,7 +63,8 @@
 			</div>
             @endforeach
 		</div>
-		<div class="bg-dark w-75 position-relative">
+		{{-- image post --}}
+		<div class=" w-75 position-relative" style="background-color: #777;">
 			<div class="">
 				<img src="{{ Storage::url('public/posts/').$post->image }}" class="position-absolute top-50 start-50 translate-middle" style="max-height: 800px; max-width: 800px; height: auto; width: auto;">
 					<a href="{{ url('/dashboard') }}"><button class="bg-transparent border border-0 position-absolute end-0 m-3"><i class="fa-solid fa-x text-light fs-5"></i></button></a>
