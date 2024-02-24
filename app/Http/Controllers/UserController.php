@@ -11,6 +11,13 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class UserController extends Controller
 {
+    public function index(){
+        $user = new User;
+        $user->EmailHasVerified(18);
+
+        return $user;
+    }
+
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -32,7 +39,6 @@ class UserController extends Controller
         
 
         return redirect()->back();
-
-   
+       
     }
 }

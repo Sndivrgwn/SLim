@@ -5,7 +5,7 @@
 	{{-- sidebar --}}
 		<div class=" w-25 p-3" style="overflow-y: scroll; overflow-x: hidden; background-color: #333;">
 			<div class="d-flex">
-				<img src="{{  Storage::url('public/users/').Auth::user()->image }}" alt="ProfilePhoto" width="45px" height="45px" class="rounded rounded-5 rounded-cirle">
+				<img src="{{  Storage::url('public/users/'). $post->user->image }}" alt="ProfilePhoto" width="45px" height="45px" class="rounded rounded-5 rounded-cirle">
 				<div class="text-light ms-2 d-flex align-items-baseline flex-column">
 					<h6 class="m-0 text-light fw-bold">{{ $post->user->name }}</h6>
 					<p class="m-0" style="font-size: 13px;">12 hour</p>
@@ -55,7 +55,7 @@
 			<hr class="text-light border border-1 opacity-75 m-0">
             @foreach ($comments as $compost)    
 			<div class="d-flex gap-2 mt-3">
-				<img src="{{ Storage::url('public/posts/').$post->image }}" alt="ProfilePhoto" width="40px" height="40px" class="rounded rounded-5 rounded-cirle mt-1">
+				<img src="{{ Storage::url('public/users/').$compost->user->image }}" alt="ProfilePhoto" width="40px" height="40px" class="rounded rounded-5 rounded-cirle mt-1">
 				<div class="bg-light rounded rounded-3 mt-1 p-2" style="max-width: 286px">
 					<h6>{{ $compost->user->name }}</h6>
 					<p>{{ $compost->comment }}</p>

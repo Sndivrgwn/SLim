@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\CommentController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ThreadController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDashboardController;
 use App\Models\Post;
 use Illuminate\Auth\Events\Login;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -82,5 +84,17 @@ require __DIR__.'/auth.php';
 Route::get('/auth/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
 Route::get('/logout', [SocialiteController::class, 'logout']);
+Auth::routes(['verify' => true]);
 
 //POST
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+Route::get('/user/email/verify', function() {
+    return view('auth.verify-email');
+})->name('auth.verify-email');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

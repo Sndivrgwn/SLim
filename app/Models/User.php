@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
@@ -24,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'email_verified_at'
     ];
 
     /**
@@ -63,5 +64,9 @@ class User extends Authenticatable
     public function comment()
     {
         return $this->hasMany(Comment::class, 'user_id', 'id');
+    }
+
+    public function EmailHasVerified($id){
+        User::select('id', $id)->where('email_verified_at' ,'=', null)->get();
     }
 }

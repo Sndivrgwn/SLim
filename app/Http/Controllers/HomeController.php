@@ -2,25 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class HomeController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
     }
 
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function index(ThreadController $threadController, CommentController $commentController, PostController $postController, UserController $userController)
     {
         $threads = $threadController->index();
         $comments = $commentController->index();
         $post = $postController->index();
-        $pengguna = $userController->index();
+        $user = $userController->index();
 
 
-        return view('table', compact('threads', 'comments', 'post', 'pengguna'));
+        return view('table', compact('threads', 'comments', 'post', 'user'));
     }
 }

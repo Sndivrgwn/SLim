@@ -235,6 +235,29 @@
             </form>
         @endauth
     </div>
+
+    @if(Auth::user()->email_verified_at === null)
+      <div style="display:flex; align-items: center" class="bg-warning">
+        <h6 class="ms-4 mt-2 text-dark  fw-bold">Email Kamu Belum di Verifikasi!</h6>
+        @auth
+                        
+            <a class="btn btn-6 btn-primary ms-2 mt-3 p-1" href="{{ route('auth.verify-email') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+            </div>
+
+            <span class="nav-link-text ms-1 pe-1">Verifikasi</span>
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        @endauth
+    </div>
+    @endif
+
+    <div class="mt-5 bg-info p-2 d-flex gap-2 justify-content-between">
+      <a  class="text-light fw-bold pt-1 ps-3">tambah postingan</a>
+      <button class="btn btn-1  bg-warning text-light"><a href="{{ route('posts.create') }}">+</a></button>
+    </div>
     <div class="d-flex">
     
     @foreach ($post as $post )
